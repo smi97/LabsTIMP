@@ -4,19 +4,36 @@
 
 using namespace std;
 
+void open(ifstream & file, string pass){
+    if (file.is_open()) {
+        file.close();
+    }
+    file.open(pass);
+}
+
+int CountStrings(istream& is)
+{
+    string s;
+    int nStrings = 0;
+    while (getline(is, s))
+        ++nStrings;
+    return nStrings;
+}
+
 int main()
 {
+    string pass = "f1.txt", pass1 = "f2.txt";
     ifstream file, file1;
-    file.open("f1.txt");
-    file1.open("f2.txt");
+    file.open(pass);
+    file1.open(pass1);
     if ((!file.is_open()) || (!file1.is_open())){
         cout << "Ошибка открытия файла!\n";
-        if (file.is_open()) file.close();
-        if (file1.is_open()) file1.close();
         return 0;
     }
 
-    string * str = new string [1024], * str1 = new string [1024];
+    string * str = new string [CountStrings(file)], * str1 = new string [CountStrings(file1)];
+    open(file, pass);
+    open(file1, pass1);
     int i = 0, j = 0, kol = 0, kol1 = 0;
 
     while (getline(file, str[i])){
