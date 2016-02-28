@@ -11,6 +11,8 @@ int main()
     file1.open("f2.txt");
     if ((!file.is_open()) || (!file1.is_open())){
         cout << "Ошибка открытия файла!\n";
+        if (file.is_open()) file.close();
+        if (file1.is_open()) file1.close();
         return 0;
     }
 
