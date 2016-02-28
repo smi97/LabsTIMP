@@ -1,59 +1,57 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include <iostream>
 #include <fstream>
 #include <string>
 
-
 using namespace std;
 
-
-
-int main(int argc, char * argv[])
+int main()
 {
-    FILE * f1;
-    FILE * f2;
-    f1 = fopen("f1.txt","r");
-    f2 = fopen("f2.txt","r");
-    char a[100][100], b[100][100];
-    int i = 0, j = 0, kol1 = 0, kol2 = 0;
-    while(fgets(a[i],1024,f1)){
-        if (!strstr(a[i], "\n")) strcat(a[i], "\n");
+    ifstream file, file1;
+    file.open("f1.txt");
+    file1.open("f2.txt");
+    if ((!file.is_open()) || (!file1.is_open())){
+        cout << "Ошибка открытия файла!\n";
+        return 0;
+    }
+
+    string * str = new string [1024], * str1 = new string [1024];
+    int i = 0, j = 0, kol = 0, kol1 = 0;
+
+    while (getline(file, str[i])){
+        if (!(str[i].find("\n"))) str[i] += "\n";
+        i++;
+        kol++;
+    }
+    i = 0;
+    while(getline(file1, str1[i])){
+        if (!(str1[i].find("\n"))) str1[i] += "\n";
         i++;
         kol1++;
     }
-    i = 0;
-    while(fgets(b[i],1024,f2)){
-        if (!strstr(b[i], "\n")) strcat(b[i], "\n");
 
-        i++;
-        kol2++;
-    }
-    int * mas;
-    int * mas1;
-    mas = new int [kol1];
-    mas1 = new int [kol2];
-    for(i = 0; i < kol1; i++)
-        mas[i]=0;
-    for(i = 0; i < kol2; i++)
-       mas1[i]=0;
-    for(i = 0; i < kol1; i++)
-        for(j = 0; j < kol2; j++)
-    {
-        if(!strcmp(a[i],b[j])) {
+    int * mas = new int [kol];
+    int * mas1 = new int [kol1];
+    memset(mas, 0, kol);
+    memset(mas1, 0, kol1);
+
+    for(i = 0; i < kol; i++)
+        for(j = 0; j < kol1; j++)
+            if(str[i] == str1[j]) {
             mas[i] = 1;
             mas1[j] = 1;
         }
 
-
-    }
-    cout << "file1: ";
-    for(i = 0; i < kol1; i++)
-        if (!mas[i]) cout << i << " " << a[i];
+    cout << "file1: " << endl;
+    for(i = 0; i < kol; i++)
+        if (!mas[i]) cout << i << " " << str[i] << endl;
     cout << "file2: " << endl;
-    for(i = 0; i < kol2; i++)
-        if (!mas1[i]) cout << i << " " << b[i];
+    for(i = 0; i < kol1; i++)
+        if (!mas1[i]) cout << i << " " << str1[i] << endl;
+
+    file.close();
+    file1.close();
+
+    delete [] str;
+    delete [] str1;
     return 0;
 }
-
