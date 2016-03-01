@@ -27,8 +27,10 @@ int main()
     file.open(pass);
     file1.open(pass1);
     if ((!file.is_open()) || (!file1.is_open())){
+        if (file.is_open()) file.close();
+        if (file1.is_open()) file1.close();
         cout << "Ошибка открытия файла!\n";
-        return 0;
+        return 1;
     }
 
     string * str = new string [CountStrings(file)], * str1 = new string [CountStrings(file1)];
