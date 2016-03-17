@@ -4,16 +4,8 @@
 
 using namespace std;
 
-int main()
+void Doxygen(ifstream& file)
 {
-    string pass = "main.cpp";
-    ifstream file;
-    file.open(pass);
-    if (!file.is_open()){
-        cout << "Ошибка открытия файла!\n";
-        return 1;
-    }
-
     int i = 0, j = 0, k = 0;
     string str;
     size_t n;
@@ -29,7 +21,7 @@ int main()
                 j++;
                 cout << j << ". ";
                 while (str[str.find("*/")] != str[k]){
-                cout<< str[k];
+                    cout<< str[k];
                     k++;
                 }
                 cout << endl;
@@ -59,6 +51,20 @@ int main()
         }
     }
 
+
+}
+
+int main()
+{
+    string pass = "main.cpp";
+    ifstream file;
+    file.open(pass);
+    if (!file.is_open()){
+        cout << "Ошибка открытия файла!\n";
+        return 1;
+    }
+
+    Doxygen(file);
 
     file.close();
 
