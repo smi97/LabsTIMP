@@ -20,7 +20,8 @@ void Doxygen(ifstream& file)
             if (n != string::npos) {
                 j++;
                 cout << j << ". ";
-                while (str[str.find("*/")] != str[k]){
+                while ((str[str.find("*/")] != str[k]) && (k != str.length()))
+                {
                     cout<< str[k];
                     k++;
                 }
@@ -65,9 +66,8 @@ int main()
     }
 
     Doxygen(file);
-
+    
     file.close();
-
+    
     return 0;
 }
-
