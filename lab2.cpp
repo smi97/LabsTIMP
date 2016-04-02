@@ -37,7 +37,7 @@ void Doxygen(ifstream& file)
                         f = true;
                         j++;
                         cout << j << ". ";
-                        while (str[str.find("*/")] != str[k]){
+                        while ((str[str.find("*/")] != str[k]) && (k != str.length())){
                             cout<< str[k];
                             k++;
                         }
