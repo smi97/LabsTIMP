@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <ctime>
+
 
 using namespace std;
 
@@ -8,27 +10,35 @@ void Doxygen(ifstream& file)
 {
     int i = 0, j = 0, k = 0;
     string str;
-    size_t n;
+    size_t n, a;
     bool f = false;
 
-    while (!file.eof()) {
+    while (!file.eof())
+    {
         getline(file, str);
         n = str.find("/**");
-        if(n != string::npos){
+        if(n != string::npos)
+        {
             n = str.find("\\func");
             k = n + 6;
-            if (n != string::npos) {
+            if (n != string::npos)
+            {
                 j++;
                 cout << j << ". ";
-                while ((str[str.find("*/")] != str[k]) && (k != str.length()))
+                a = str.find("*/");
+                if (a != string::npos)
+                while (a != k)
                 {
                     cout<< str[k];
                     k++;
                 }
+                else cout << str;
                 cout << endl;
             }
-            else {
-                do {
+            else
+            {
+                do
+                {
                     getline(file, str);
                     n = str.find("\\func");
                     k = n + 6;
@@ -37,7 +47,8 @@ void Doxygen(ifstream& file)
                         f = true;
                         j++;
                         cout << j << ". ";
-                        while ((str[str.find("*/")] != str[k]) && (k != str.length())){
+                        while ((str[str.find("*/")] != str[k]) && (k != str.length()))
+                        {
                             cout<< str[k];
                             k++;
                         }
@@ -60,7 +71,8 @@ int main()
     string pass = "main.cpp";
     ifstream file;
     file.open(pass);
-    if (!file.is_open()){
+    if (!file.is_open())
+    {
         cout << "Ошибка открытия файла!\n";
         return 1;
     }
@@ -68,6 +80,5 @@ int main()
     Doxygen(file);
     
     file.close();
-    
     return 0;
 }
