@@ -31,7 +31,7 @@ void Doxygen(ifstream& file)
                     cout<< str[k];
                     k++;
                 }
-                else cout << str;
+                else cout << str.substr(k);
                 cout << endl;
             }
             else
@@ -53,7 +53,7 @@ void Doxygen(ifstream& file)
                                 cout<< str[k];
                                 k++;
                             }
-                        else cout << str;
+                        else cout << str.substr(k);
                         cout << endl;
 
                     }
